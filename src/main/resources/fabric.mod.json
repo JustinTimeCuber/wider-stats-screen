@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "wider-stats-screen",
-  "version": "0.1",
+  "version": "0.1-beta.1",
 
   "name": "Wider Stats Screen",
   "description": "Make the stats screen wider to fix overlap between columns",
@@ -27,7 +27,6 @@
 
   "depends": {
     "fabricloader": ">=0.14.6",
-    "fabric": "*",
     "minecraft": "1.19.3",
     "java": ">=17"
   }
