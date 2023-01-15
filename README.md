@@ -1,9 +1,3 @@
-# Fabric Example Mod
+# Wider Stats Screen
 
-## Setup
-
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Makes the items section of the Minecraft stats screen more spread out, so that more digits can be seen without overlap. Currently available for 1.19.x.
