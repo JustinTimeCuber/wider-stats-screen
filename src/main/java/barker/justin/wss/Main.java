@@ -20,6 +20,11 @@ public class Main implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		loadConfig();
+		LOGGER.info("Wider Stats Screen loaded.");
+	}
+
+	public static void loadConfig() {
 		try {
 			configLines = Files.readAllLines(configPath);
 		} catch(IOException e) {
@@ -27,6 +32,10 @@ public class Main implements ModInitializer {
 			createDefaultConfig();
 		}
 		for(String str : configLines) {
+			if(str.trim().charAt(0) == '#') {
+				// Line is a comment - skip.
+				continue;
+			}
 			try {
 				String key = str.split(":")[0].trim();
 				String value = str.split(":")[1].trim();
@@ -41,11 +50,12 @@ public class Main implements ModInitializer {
 				LOGGER.warn("Failed to load config line \"" + str + "\" due to: " + e.getMessage());
 			}
 		}
-		LOGGER.info("Wider Stats Screen loaded.");
 	}
 
-	private void createDefaultConfig() {
+	private static void createDefaultConfig() {
 		configLines = new ArrayList<>();
+		configLines.add("# Set the horizontal spacing of the items screen.");
+		configLines.add("# 1 is vanilla, and the suggested range is 1.5 to 2.5.");
 		configLines.add("scale: 1.75");
 		try {
 			Files.createFile(configPath);
