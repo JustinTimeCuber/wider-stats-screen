@@ -1,9 +1,6 @@
 # Wider Stats Screen
 
-Makes the items section of the Minecraft stats screen more spread out, so that more digits can be seen without overlap. Currently available for 1.19.x. Might not work on all display resolutions and GUI scale settings; if you have issues with the sides of the menu being cut off then try decreasing your GUI scale. This will be worked on more in the future.
+This mod spreads the columns in the "Items" section of the statistics menu farther from each other than in vanilla. This fixes the issue where having more than a million of some statistic would cause it to overlap with the column to its left. The width is configurable by editing the file `.minecraft/config/wider-stats-screen.txt`, so if it overflows on the sides of your screen, try decreasing that value or decreasing your GUI scale.
 
-Mod enabled:
-![2023-01-15_12 00 28](https://user-images.githubusercontent.com/46458276/212561942-fcfc19fa-7fd1-4591-b15a-846356925ab7.png)
-
-Mod disabled:
-![2023-01-15_14 09 38](https://user-images.githubusercontent.com/46458276/212561945-70bcf982-0ded-40c8-b9bb-4089c0416924.png)
+Showcase of different scale values:
+<img src="https://i.imgur.com/O54futY.gif"></img>
