@@ -1,5 +1,6 @@
 package barker.justin.wss.mixin;
 
+import barker.justin.wss.Main;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
@@ -8,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public class StatsScreenMixin {
 	@ModifyConstant(method = "getColumnX(I)I", constant = @Constant(intValue = 115))
 	private int injected1(int value) {
-		return 155;
+		return (int)(75 + 40*Main.scale);
 	}
 	@ModifyConstant(method = "getColumnX(I)I", constant = @Constant(intValue = 40))
 	private int injected2(int value) {
-		return 80;
+		return (int)(40*Main.scale);
 	}
 }
