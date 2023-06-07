@@ -21,17 +21,28 @@ public class Main implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		loadConfig();
-		LOGGER.info("Wider Stats Screen loaded.");
 	}
 
-	public static void loadConfig() {
+	/**
+	 * Load the configuration file and set corresponding values.
+	 * If the file does not exist, attempt to create one.
+	 * If that fails, continue with the hard-coded defaults.
+	 * @return true if the file exists, false if it has to be created
+	 */
+	public static boolean loadConfig() {
+		boolean scaleSet = false;
 		try {
 			configLines = Files.readAllLines(configPath);
 		} catch(IOException e) {
-			LOGGER.info("Config file not found, attempting to create one...");
-			createDefaultConfig();
+			LOGGER.info("[WSS] Config file not found, attempting to create one...");
+			createConfigFile();
+			return false;
 		}
 		for(String str : configLines) {
+			if(str.isBlank()) {
+				// Line is empty - skip.
+				continue;
+			}
 			if(str.trim().charAt(0) == '#') {
 				// Line is a comment - skip.
 				continue;
@@ -42,28 +53,44 @@ public class Main implements ModInitializer {
 				switch(key) {
 					case "scale":
 						scale = Double.parseDouble(value);
+						scaleSet = true;
 						break;
 					default:
-						LOGGER.warn("Unknown config option: " + key);
+						LOGGER.warn("[WSS] Unknown config option: " + key);
 				}
 			} catch(Exception e) {
-				LOGGER.warn("Failed to load config line \"" + str + "\" due to: " + e.getMessage());
+				LOGGER.warn("[WSS] Failed to load config line \"" + str + "\" due to: " + e.getMessage());
 			}
 		}
+		// If any configuration value isn't set, update the configuration file
+		if(!scaleSet) {
+			createConfigFile();
+		}
+		LOGGER.info("[WSS] Config loaded.");
+		return true;
 	}
 
-	private static void createDefaultConfig() {
+	/**
+	 * Create a configuration file with the current loaded values.
+	 * If the config hasn't been loaded, this will just create a new config file with the default values.
+	 * @return true if the file is successfully written
+	 */
+	private static boolean createConfigFile() {
 		configLines = new ArrayList<>();
 		configLines.add("# Set the horizontal spacing of the items screen.");
 		configLines.add("# 1 is vanilla, and the suggested range is 1.5 to 2.5.");
-		configLines.add("scale: 1.75");
+		configLines.add("scale: " + scale);
 		try {
+			Files.deleteIfExists(configPath);
 			Files.createFile(configPath);
 			for (String str : configLines) {
 				Files.writeString(configPath, str + System.lineSeparator(), StandardOpenOption.APPEND);
 			}
+			LOGGER.info("[WSS] Config created.");
+			return true;
 		} catch(IOException e) {
-			LOGGER.error("Failed to create config file: " + e.getMessage());
+			LOGGER.error("[WSS] Failed to create config file: " + e.getMessage());
+			return false;
 		}
 	}
 }
