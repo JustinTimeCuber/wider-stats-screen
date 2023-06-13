@@ -7,7 +7,8 @@
   ],
   "client": [
     "ItemStatsListWidgetMixin",
-    "StatsScreenMixin"
+    "StatsScreenMixin",
+    "ItemStatsListInvokerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
