@@ -20,14 +20,14 @@ public class StatsScreenMixin {
 		return (int)(40*Main.scale);
 	}
 	@Inject(method = "selectStatList(Lnet/minecraft/client/gui/widget/AlwaysSelectedEntryListWidget;)V", at = @At("HEAD"))
-	private void injectSelectStatlist(AlwaysSelectedEntryListWidget<?> list, CallbackInfo ci) {
+	private void injectSelectStatList(AlwaysSelectedEntryListWidget<?> list, CallbackInfo ci) {
 		String listClassName = list.getClass().getSimpleName();
 		// This is not a great way of doing this, but it works.
 		// Two separate checks for Yarn and intermediary mappings, so it works in dev environment as well as normal use.
 		if(listClassName.equals("ItemStatsListWidget") || listClassName.equals("class_4200")) {
 			Main.loadConfig();
 			Main.injectClick = true;
-			((ItemStatsListInvokerMixin)list).callClickedHeader(0, 0);
+			((ItemStatsListWidgetAccessor)list).callClickedHeader(0, 0);
 			Main.injectClick = false;
 		}
 	}
