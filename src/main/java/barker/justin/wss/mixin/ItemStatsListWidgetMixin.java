@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(targets = "net.minecraft.client.gui.screen.StatsScreen$ItemStatsListWidget")
 public class ItemStatsListWidgetMixin {
-	@ModifyConstant(method = "getRowWidth()I", constant = @Constant(intValue = 375))
-	private int injectRowWidth(int value) {
-		return (int)(75 + 300*Main.scale);
+	@ModifyConstant(method = "method_57742(I)I" /* Previously StatsScreen.getColumnX(I)I */, constant = @Constant(intValue = 40))
+	private int injectColumnSpacing(int value) {
+		return (int)(40*Main.scale);
 	}
-	@ModifyConstant(method = "getScrollbarPositionX()I", constant = @Constant(intValue = 140))
-	private int injectScrollbarPos(int value) {
-		return (int)(140*Main.scale);
+	@ModifyConstant(method = "getRowWidth()I", constant = @Constant(intValue = 280))
+	private int injectRowWidth(int value) {
+		return (int)(280*Main.scale);
 	}
 	@ModifyConstant(method = "clickedHeader(II)Z", constant = @Constant(intValue = -1))
 	private int injectDefaultStatType(int value) {
