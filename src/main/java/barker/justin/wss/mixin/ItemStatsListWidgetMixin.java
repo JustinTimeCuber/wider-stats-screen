@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(targets = "net.minecraft.client.gui.screen.StatsScreen$ItemStatsListWidget")
 public class ItemStatsListWidgetMixin {
-	@ModifyConstant(method = "method_57742(I)I" /* Previously StatsScreen.getColumnX(I)I */, constant = @Constant(intValue = 40))
+	@ModifyConstant(method = "getIconX(I)I", constant = @Constant(intValue = 40))
 	private int injectColumnSpacing(int value) {
 		return (int)(40*Main.scale);
 	}
@@ -20,15 +20,15 @@ public class ItemStatsListWidgetMixin {
 	private int injectRowWidth(int value) {
 		return (int)(280*Main.scale);
 	}
-	@ModifyConstant(method = "clickedHeader(II)Z", constant = @Constant(intValue = -1))
+	@ModifyConstant(method = "select(II)Z", constant = @Constant(intValue = -1))
 	private int injectDefaultStatType(int value) {
 		return Main.injectClick ? Main.defaultCategory : value;
 	}
-	@ModifyConstant(method = "clickedHeader(II)Z", constant = @Constant(intValue = 0, ordinal = 0))
+	@ModifyConstant(method = "select(II)Z", constant = @Constant(intValue = 0, ordinal = 0))
 	private int injectSkipForLoop(int value) {
 		return Main.injectClick ? Integer.MAX_VALUE : value;
 	}
-	@Inject(method = "clickedHeader(II)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundManager;play(Lnet/minecraft/client/sound/SoundInstance;)V"), cancellable = true)
+	@Inject(method = "select(II)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundManager;play(Lnet/minecraft/client/sound/SoundInstance;)V"), cancellable = true)
 	private void injectCancelSound(CallbackInfoReturnable<Boolean> cir) {
 		if(Main.injectClick) {
 			cir.setReturnValue(true);

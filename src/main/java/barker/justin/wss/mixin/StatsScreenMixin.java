@@ -17,7 +17,7 @@ public class StatsScreenMixin {
 		if(listClassName.equals("ItemStatsListWidget") || listClassName.equals("class_4200")) {
 			Main.loadConfig();
 			Main.injectClick = true;
-			((ItemStatsListWidgetAccessor)list).callClickedHeader(0, 0);
+			((ItemStatsListWidgetAccessor)list).callSelect(0, 0);
 			Main.injectClick = false;
 		}
 	}

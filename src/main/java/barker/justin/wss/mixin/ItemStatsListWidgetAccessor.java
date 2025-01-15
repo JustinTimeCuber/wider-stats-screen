@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(targets = "net.minecraft.client.gui.screen.StatsScreen$ItemStatsListWidget")
 public interface ItemStatsListWidgetAccessor {
-    @Invoker("clickedHeader")
-    boolean callClickedHeader(int x, int y);
+    @Invoker("select")
+    boolean callSelect(int x, int y);
     @Accessor("listOrder")
     public void setListOrder(int order);
     @Accessor("selectedStatType")
