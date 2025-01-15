@@ -105,6 +105,7 @@ public class Main implements ModInitializer {
 		configLines.add("defaultCategory: " + defaultCategory);
 		try {
 			Files.deleteIfExists(configPath);
+			Files.createDirectories(configPath.getParent());
 			Files.createFile(configPath);
 			for (String str : configLines) {
 				Files.writeString(configPath, str + System.lineSeparator(), StandardOpenOption.APPEND);
