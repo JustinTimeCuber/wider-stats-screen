@@ -28,7 +28,7 @@ public class ItemStatsListWidgetMixin {
 	private int injectSkipForLoop(int value) {
 		return Main.injectClick ? Integer.MAX_VALUE : value;
 	}
-	@Inject(method = "select(II)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/SoundManager;play(Lnet/minecraft/client/sound/SoundInstance;)V"), cancellable = true)
+	@Inject(method = "select(II)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getSoundManager()Lnet/minecraft/client/sound/SoundManager;"), cancellable = true)
 	private void injectCancelSound(CallbackInfoReturnable<Boolean> cir) {
 		if(Main.injectClick) {
 			cir.setReturnValue(true);
