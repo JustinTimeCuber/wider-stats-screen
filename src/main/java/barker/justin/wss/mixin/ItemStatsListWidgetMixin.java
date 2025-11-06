@@ -20,6 +20,7 @@ public class ItemStatsListWidgetMixin {
 	private int injectRowWidth(int value) {
 		return (int)(280*Main.scale);
 	}
+	/*
 	@ModifyConstant(method = "select(II)Z", constant = @Constant(intValue = -1))
 	private int injectDefaultStatType(int value) {
 		return Main.injectClick ? Main.defaultCategory : value;
@@ -41,4 +42,5 @@ public class ItemStatsListWidgetMixin {
 			((ItemStatsListWidgetAccessor) this).setSelectedStatType(statType);
 		}
 	}
+	 */
 }

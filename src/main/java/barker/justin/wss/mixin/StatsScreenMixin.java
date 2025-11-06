@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(net.minecraft.client.gui.screen.StatsScreen.class)
 public class StatsScreenMixin {
+	/*
 	@Inject(method = "selectStatList(Lnet/minecraft/client/gui/widget/AlwaysSelectedEntryListWidget;)V", at = @At("HEAD"))
 	private void injectSelectStatList(AlwaysSelectedEntryListWidget<?> list, CallbackInfo ci) {
 		String listClassName = list.getClass().getSimpleName();
@@ -21,4 +22,5 @@ public class StatsScreenMixin {
 			Main.injectClick = false;
 		}
 	}
+	 */
 }
