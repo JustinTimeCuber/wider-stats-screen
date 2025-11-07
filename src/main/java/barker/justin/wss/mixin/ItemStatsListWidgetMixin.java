@@ -23,6 +23,7 @@ public class ItemStatsListWidgetMixin {
 	}
 	@Inject(method = "<init>", at = @At("TAIL"))
 	private void injectAfterConstructor(CallbackInfo ci) {
+		Main.loadConfig();
 		if(Main.defaultCategory >= 0) {
 			try {
 				StatType<?> st = ((ItemStatsListWidgetAccessor) this).callGetStatType(Main.defaultCategory);
