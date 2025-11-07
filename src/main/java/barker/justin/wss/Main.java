@@ -17,7 +17,6 @@ public class Main implements ModInitializer {
 	public static List<String> configLines;
 	public static double scale = 1.75;
 	public static int defaultCategory = 0;
-	public static boolean injectClick = false;
 
 	@Override
 	public void onInitialize() {
