@@ -8,7 +8,8 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.NoSuchElementException;
 
 @Mixin(targets = "net.minecraft.client.gui.screen.StatsScreen$ItemStatsListWidget")
 public class ItemStatsListWidgetMixin {
@@ -20,27 +21,15 @@ public class ItemStatsListWidgetMixin {
 	private int injectRowWidth(int value) {
 		return (int)(280*Main.scale);
 	}
-	/*
-	@ModifyConstant(method = "select(II)Z", constant = @Constant(intValue = -1))
-	private int injectDefaultStatType(int value) {
-		return Main.injectClick ? Main.defaultCategory : value;
-	}
-	@ModifyConstant(method = "select(II)Z", constant = @Constant(intValue = 0, ordinal = 0))
-	private int injectSkipForLoop(int value) {
-		return Main.injectClick ? Integer.MAX_VALUE : value;
-	}
-	@Inject(method = "select(II)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getSoundManager()Lnet/minecraft/client/sound/SoundManager;"), cancellable = true)
-	private void injectCancelSound(CallbackInfoReturnable<Boolean> cir) {
-		if(Main.injectClick) {
-			cir.setReturnValue(true);
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void injectAfterConstructor(CallbackInfo ci) {
+		if(Main.defaultCategory >= 0) {
+			try {
+				StatType<?> st = ((ItemStatsListWidgetAccessor) this).callGetStatType(Main.defaultCategory);
+				((ItemStatsListWidgetAccessor) this).callSelectStatType(st);
+			} catch (NoSuchElementException ignored) {
+				// If there are no stats yet, then sorting will fail, but we can just ignore the error
+			}
 		}
 	}
-	@Inject(method = "selectStatType(Lnet/minecraft/stat/StatType;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/StatsScreen$ItemStatsListWidget;children()Ljava/util/List;"))
-	private void injectSelectStatType(StatType<?> statType, CallbackInfo ci) {
-		if(Main.injectClick) {
-			((ItemStatsListWidgetAccessor) this).setListOrder(-1);
-			((ItemStatsListWidgetAccessor) this).setSelectedStatType(statType);
-		}
-	}
-	 */
 }

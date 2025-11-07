@@ -7,7 +7,6 @@
   ],
   "client": [
     "ItemStatsListWidgetMixin",
-    "StatsScreenMixin",
     "ItemStatsListWidgetAccessor"
   ],
   "injectors": {
