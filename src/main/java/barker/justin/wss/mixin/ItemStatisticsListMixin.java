@@ -1,7 +1,7 @@
 package barker.justin.wss.mixin;
 
 import barker.justin.wss.Main;
-import net.minecraft.stat.StatType;
+import net.minecraft.stats.StatType;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.NoSuchElementException;
 
-@Mixin(targets = "net.minecraft.client.gui.screen.StatsScreen$ItemStatsListWidget")
-public class ItemStatsListWidgetMixin {
-	@ModifyConstant(method = "getIconX(I)I", constant = @Constant(intValue = 40))
+@Mixin(targets = "net.minecraft.client.gui.screens.achievement.StatsScreen$ItemStatisticsList")
+public class ItemStatisticsListMixin {
+	@ModifyConstant(method = "getColumnX(I)I", constant = @Constant(intValue = 40))
 	private int injectColumnSpacing(int value) {
 		return (int)(40*Main.scale);
 	}
@@ -26,8 +26,8 @@ public class ItemStatsListWidgetMixin {
 		Main.loadConfig();
 		if(Main.defaultCategory >= 0) {
 			try {
-				StatType<?> st = ((ItemStatsListWidgetAccessor) this).callGetStatType(Main.defaultCategory);
-				((ItemStatsListWidgetAccessor) this).callSelectStatType(st);
+				StatType<?> st = ((ItemStatisticsListAccessor) this).callGetColumn(Main.defaultCategory);
+				((ItemStatisticsListAccessor) this).callSortByColumn(st);
 			} catch (NoSuchElementException ignored) {
 				// If there are no stats yet, then sorting will fail, but we can just ignore the error
 			}
